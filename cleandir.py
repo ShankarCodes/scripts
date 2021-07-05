@@ -1,24 +1,9 @@
 #!/usr/bin/env python3
 """
-cleandir.py - A script for cleaning a directory by moving related type of files to separate folders.
-
-Copyright 2021 Shankar
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+cleandir.py - A script for cleaning a directory by moving related
+type of files to separate folders.
 """
 
-
-# Extensions list from here https://github.com/dyne/file-extension-list
-# Add your own extensions and category here.
-# <category>: <ext1> <ext1> ...
 # Extensions have to be space separated
 import shutil
 from pathlib import Path
@@ -104,13 +89,16 @@ def get_files(path, recurse):
             yield os.path.abspath(str(entry))
     yield ''
 
+
 def remove_prefix(string, prefix):
     if string.startswith(prefix):
         return string[len(prefix):]
     return string
 
+
 def short(path):
-    return remove_prefix(str(path),str(Path.cwd()) + '\\')
+    return remove_prefix(str(path), str(Path.cwd()) + '\\')
+
 
 if __name__ == '__main__':
     """
@@ -160,7 +148,8 @@ if __name__ == '__main__':
                         # If a file of the same name exists, directory creation will fail
                         # so ask the user to remove it.
                         print('Cannot create the output folder: '+out_path)
-                        print('Please check if a file by the same name exists, and delete it.')
+                        print(
+                            'Please check if a file by the same name exists, and delete it.')
                         break
                     target_path = output_path / (category+'s')
                 except Exception as e:
@@ -169,7 +158,8 @@ if __name__ == '__main__':
                     print('Check if a file by the same name exists')
                     break
                 target_path.mkdir(parents=True, exist_ok=True)
-                print("Copying" if copy else "Moving", short(path), '=>', short(target_path))
+                print("Copying" if copy else "Moving",
+                      short(path), '=>', short(target_path))
                 try:
                     # Move the folder to the target folder
                     if copy:
@@ -177,12 +167,14 @@ if __name__ == '__main__':
                     else:
                         shutil.move(path, target_path)
                 except shutil.Error as e:
-                    errors[f'{"Copying" if copy else "Moving"} {short(path)} => {short(target_path)}:'] = str(e)
+                    errors[f'{"Copying" if copy else "Moving"} {short(path)} => {short(target_path)}:'] = str(
+                        e)
                 except Exception as e:
-                    errors[f'{"Copying" if copy else "Moving"} {short(path)} => {short(target_path)}:'] = str(e)
+                    errors[f'{"Copying" if copy else "Moving"} {short(path)} => {short(target_path)}:'] = str(
+                        e)
         print()
         print('='*5+' ERRORS '+'='*5)
         print()
         for incident, error in errors.items():
-            print(incident,'-',error)
+            print(incident, '-', error)
         print()

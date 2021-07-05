@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
+"""
+A python script to check the hash of any file.
+Mainly for windows, which does not have a hash checksum finder.
+"""
 import hashlib
 import sys
 import tkinter as tk
 
 functions = {
     # Add your functions here.
-    'sha1':hashlib.sha1,
-    'sha256':hashlib.sha256,
-    'sha512':hashlib.sha512,
-    'md5':hashlib.md5,
-    'sha3_512':hashlib.sha3_512,
-    'sha3_256':hashlib.sha3_256,
+    'sha1': hashlib.sha1,
+    'sha256': hashlib.sha256,
+    'sha512': hashlib.sha512,
+    'md5': hashlib.md5,
+    'sha3_512': hashlib.sha3_512,
+    'sha3_256': hashlib.sha3_256,
 }
+
 
 def make_text(label, content, master):
     text = tk.Text(master, height=1, borderwidth=0)
@@ -31,7 +36,7 @@ def main():
     else:
         error = "Please specify file name"
 
-    if error is  None:
+    if error is None:
         hashers = [functions.get(func)() for func in functions]
 
         with open(sys.argv[1], "rb") as f:
@@ -41,10 +46,11 @@ def main():
         final_hsh = [hasher.hexdigest() for hasher in hashers]
         for func, hsh in zip(functions, final_hsh):
             make_text(func, hsh, master)
-        
+
     else:
         make_text("Error", "Specify file name", master)
     tk.mainloop()
+
 
 if __name__ == '__main__':
     main()

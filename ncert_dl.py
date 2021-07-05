@@ -1,3 +1,6 @@
+"""
+A script to download ncert textbooks from commandline
+"""
 import sys
 import os
 import requests
