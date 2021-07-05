@@ -1,6 +1,14 @@
+#!/usr/bin/env python3
+# A script to download ncert textbooks from commandline
 """
-A script to download ncert textbooks from commandline
+Copyright (c) 2021 ShankarCodes. All rights reserved.
+
+You may use, distribute and modify this code under the terms of the 
+BSD 3-Clause "New" or "Revised" License.
+You should have received a copy of the BSD-3-Clause License with
+this file. If not visit https://opensource.org/licenses/BSD-3-Clause
 """
+
 import sys
 import os
 import requests
@@ -12,9 +20,10 @@ try:
 except Exception as e:
     # pyperclip not found so prepare a mock for it
     class PyperclipMock:
-        def copy(self,fake_str):
+        def copy(self, fake_str):
             pass
     pyperclip = PyperclipMock()
+
 
 def generate_url(std, sub, part, chno):
 
@@ -28,21 +37,25 @@ def generate_url(std, sub, part, chno):
 
     return f'https://ncert.nic.in/textbook/pdf/{chr(ord("a") + int(std) - 1)}e{sub}{(int(part)*100)+int(chno)}.pdf'
 
-def generate_filename(std, sub, part,chno):
+
+def generate_filename(std, sub, part, chno):
     return f'class-{std}-{sub}-{part}-{chno}.pdf'
+
 
 def display_copy(url):
     pyperclip.copy(url)
     print(f'URL:{url}')
     print('Copied to clipboard')
 
+
 def download_file(url, filename):
     response = requests.get(url)
     if not response.ok:
         print(f'Unable to download file {url}')
     # To remove contents of file if it has been opened.
-    with open(filename,'wb') as fil: pass
-    with open(filename,'ab') as fil:
+    with open(filename, 'wb') as fil:
+        pass
+    with open(filename, 'ab') as fil:
         for chunk in response.iter_content(4096):
             fil.write(chunk)
 
@@ -82,7 +95,8 @@ def main_argv():
             try:
                 url = generate_url(sys.argv[1], sys.argv[2], sys.argv[3], i)
                 display_copy(url)
-                download_file(url, generate_filename(sys.argv[1], sys.argv[2], sys.argv[3], i))
+                download_file(url, generate_filename(
+                    sys.argv[1], sys.argv[2], sys.argv[3], i))
             except Exception as e:
                 print('An error occured!')
                 traceback.print_exc()

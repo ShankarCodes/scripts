@@ -1,5 +1,12 @@
+#!/usr/bin/env python3
+# This script changes the desktop wallpaper in windows
 """
-This python script changes the desktop wallpaper in windows
+Copyright (c) 2021 ShankarCodes. All rights reserved.
+
+You may use, distribute and modify this code under the terms of the 
+BSD 3-Clause "New" or "Revised" License.
+You should have received a copy of the BSD-3-Clause License with
+this file. If not visit https://opensource.org/licenses/BSD-3-Clause
 """
 import ctypes
 import sys

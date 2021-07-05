@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
+# This script checks the hash of a file, mainly for windows
+# which does not have a builtin checksum finder.
 """
-A python script to check the hash of any file.
-Mainly for windows, which does not have a hash checksum finder.
+Copyright (c) 2021 ShankarCodes. All rights reserved.
+
+You may use, distribute and modify this code under the terms of the 
+BSD 3-Clause "New" or "Revised" License.
+You should have received a copy of the BSD-3-Clause License with
+this file. If not visit https://opensource.org/licenses/BSD-3-Clause
 """
 import hashlib
 import sys
