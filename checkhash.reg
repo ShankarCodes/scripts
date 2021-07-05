@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\HashCheck]
+@="HashCheck"
+
+[HKEY_CLASSES_ROOT\*\shell\HashCheck\command]
+@="\"C:\\Users\\shank\\Dropbox\\onPath\\chkhash.bat\" \"%1\""
